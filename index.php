@@ -14,7 +14,9 @@ $cart = new Cart();
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
+
 <h1>Products</h1>
+<div id="products-wrapper">
 <ul class="products">
     <?php
         echo $products->listProducts();
@@ -24,6 +26,14 @@ $cart = new Cart();
         }
     ?>
 </ul>
+</div>
+<h1>Cart</h1>
+<div id="cart-wrapper">
+
+        <?php
+        echo $cart->listItems();
+        ?>
+</div>
 
 </body>
 </html>

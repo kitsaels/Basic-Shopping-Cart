@@ -15,11 +15,11 @@ li > div {
     text-align: center;
 }
 
-form {
+.addForm {
     text-align: center;
 }
 
-input {
+.addInput {
     background-color: #ffbf8f;
     color: black;
     border-style: solid;
@@ -34,6 +34,31 @@ input {
 
 }
 
-input:hover {
+.addInput:hover {
     background-color: #fff0d4;
+}
+
+.removeInput {
+    background-color: #ff60b3;
+    color: black;
+    border-style: solid;
+    border-radius: 12px;
+    padding: 15px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+
+}
+
+.removeInput:hover {
+    background-color: black;
+    color: white;
+}
+
+#cart-wrapper {
+    display: flex;
+    justify-content: space-between;
 }

@@ -66,8 +66,41 @@ class Cart {
 //        echo("<script>console.log('". $cart[1]["quantity"] . "');</script>");
     }
 
-    function listItems() {
+    function getName($item) {
+        $products = $this->getProducts();
 
+        return $products[$item["id"]]["name"];
+    }
+
+    function getTotal($item) {
+        return $item["quantity"] * $item["price"];
+    }
+
+    function getProducts() {
+        return
+            // ######## please do not alter the following code ########
+            $products = [
+                ["name" => "Sledgehammer", "price" => 125.75],
+                ["name" => "Axe", "price" => 190.50],
+                ["name" => "Bandsaw", "price" => 562.131],
+                ["name" => "Chisel", "price" => 12.9],
+                ["name" => "Hacksaw", "price" => 18.45],
+            ];
+        // ########################################################
+    }
+
+    function listItems() {
+        $html = "";
+        $id = 0;
+        foreach($_SESSION["Cart"] as $item) {
+            $html = $html .
+                '<pre>
+                    <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $item["price"] . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST" action=""><input class="removeInput" type="hidden" name="productId" value='.$id.' /><input class="removeInput"  type="submit" name="removeButton" id="add" value="Remove from Cart" /></form>
+                </pre>';
+            $id++;
+        }
+
+        return $html;
     }
 
     function remove() {
@@ -97,9 +130,9 @@ class Products {
             $html = $html .
                 '<li>
                     <div class="name">' . $product["name"] . '</div><div class="price">$' . $product["price"] . '</div>
-                    <form method="POST" action="">
-                        <input type="hidden" name="productId" value='.$id.' />
-                        <input type="submit" name="addButton" id="add" value="Add to Cart" />
+                    <form class="addForm" method="POST" action="">
+                        <input class="addInput"  type="hidden" name="productId" value='.$id.' />
+                        <input class="addInput"  type="submit" name="addButton" id="add" value="Add to Cart" />
                     </form>
                 </li>';
             $id++;
