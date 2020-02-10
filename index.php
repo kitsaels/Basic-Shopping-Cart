@@ -33,6 +33,11 @@ $cart = new Cart();
 
         <?php
         echo $cart->listItems();
+
+        if (isset($_POST['removeButton'])) {
+            $productId = intVal($_POST['productId']);
+            $cart->removeFromCart($productId);
+        }
         ?>
 </div>
 

@@ -119,7 +119,7 @@ class Cart {
         return $html;
     }
 
-    function remove($productId) {
+    function removeFromCart($productId) {
         $cart = $this->getCart();
         switch ($productId) {
             case 0:
