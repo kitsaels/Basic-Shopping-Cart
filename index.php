@@ -1,6 +1,9 @@
 <?php
 include ("ShoppingCart.php");
+session_start();
+
 $products = new Products();
+$cart = new Cart();
 ?>
 
 <!doctype html>
@@ -15,6 +18,10 @@ $products = new Products();
 <ul class="products">
     <?php
         echo $products->listProducts();
+
+        if (isset($_POST['productId'])) {
+            $productId = intVal($_POST['productId']);
+        }
     ?>
 </ul>
 

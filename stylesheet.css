@@ -15,13 +15,16 @@ li > div {
     text-align: center;
 }
 
-button {
+form {
+    text-align: center;
+}
+
+input {
     background-color: #ffbf8f;
     color: black;
     border-style: solid;
     border-radius: 12px;
     padding: 15px;
-    text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
@@ -31,6 +34,6 @@ button {
 
 }
 
-button:hover {
+input:hover {
     background-color: #fff0d4;
 }
