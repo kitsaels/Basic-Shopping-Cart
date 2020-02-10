@@ -11,8 +11,11 @@ $products = new Products();
 </head>
 <body>
 <h1>Products</h1>
-<?php
-    $products->listProducts();
-?>
+<ul>
+    <?php
+        echo $products->listProducts();
+    ?>
+</ul>
+
 </body>
 </html>

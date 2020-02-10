@@ -31,9 +31,12 @@ class Products {
         ];
         // ########################################################
 
-        for($i = 0; $i < count($products); $i++) {
-            echo $products[$i]["name"].": ".$products[$i]["price"].PHP_EOL;
+        $html = "";
 
+        foreach($products as $product) {
+            $html = $html . '<li>' . $product["name"] . ': ' . $product["price"] . '</li>';
         }
+
+        return $html;
     }
 }
