@@ -104,10 +104,15 @@ class Cart {
         $html = "";
         $id = 0;
         foreach($_SESSION["Cart"] as $item) {
-            $html = $html .
-                '<pre>
-                    <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $item["price"] . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST" action=""><input class="removeInput" type="hidden" name="productId" value='.$id.' /><input class="removeInput"  type="submit" name="removeButton" id="add" value="Remove from Cart" /></form>
-                </pre>';
+            if ($item["quantity"] == 0) {
+
+            }
+            else {
+                $html = $html .
+                    '<pre>
+                        <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $item["price"] . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST" action=""><input class="removeInput" type="hidden" name="productId" value=' . $id . ' /><input class="removeInput"  type="submit" name="removeButton" id="add" value="Remove from Cart" /></form>
+                    </pre>';
+            }
             $id++;
         }
 
