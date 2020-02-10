@@ -34,7 +34,7 @@ class Products {
         $html = "";
 
         foreach($products as $product) {
-            $html = $html . '<li>' . $product["name"] . ': ' . $product["price"] . '</li>';
+            $html = $html . '<li><div class="name">' . $product["name"] . '</div><div class="price">$' . $product["price"] . '</div></li>';
         }
 
         return $html;

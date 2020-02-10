@@ -1,0 +1,16 @@
+ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+.products li {
+    list-style-type: none;
+    border: 2px solid #E6E6E6;
+    margin: 20px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+li > div {
+    text-align: center;
+}
