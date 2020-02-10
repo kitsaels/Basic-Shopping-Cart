@@ -76,6 +76,17 @@ class Cart {
         return $item["quantity"] * $item["price"];
     }
 
+    function getOverallTotal() {
+        $total = 0;
+        for($i = 0; $i < count($_SESSION["Cart"]); $i++) {
+            if ($_SESSION["Cart"][$i]["quantity"] > 0) {
+                $total += $_SESSION["Cart"][$i]["quantity"];
+            }
+        }
+
+        return $total;
+    }
+
     function getProducts() {
         return
             // ######## please do not alter the following code ########
@@ -99,6 +110,11 @@ class Cart {
                 </pre>';
             $id++;
         }
+
+        $html = $html .
+            '<pre>
+                <div class="overallTotal">Overall Total: $' . $this->getOverallTotal() .'</div>
+            </pre>';
 
         return $html;
     }
