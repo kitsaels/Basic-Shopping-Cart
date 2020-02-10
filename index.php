@@ -1,5 +1,6 @@
 <?php
-
+include ("ShoppingCart.php");
+$products = new Products();
 ?>
 
 <!doctype html>
@@ -9,6 +10,9 @@
     <title>Page Title</title>
 </head>
 <body>
-<p>I am here</p>
+<h1>Products</h1>
+<?php
+    $products->listProducts();
+?>
 </body>
 </html>

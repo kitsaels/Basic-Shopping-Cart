@@ -37,6 +37,3 @@ class Products {
         }
     }
 }
-
-$a = new Products();
-$a->listProducts();
