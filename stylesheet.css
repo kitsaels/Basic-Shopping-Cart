@@ -14,3 +14,23 @@ ul {
 li > div {
     text-align: center;
 }
+
+button {
+    background-color: #ffbf8f;
+    color: black;
+    border-style: solid;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+
+}
+
+button:hover {
+    background-color: #fff0d4;
+}
