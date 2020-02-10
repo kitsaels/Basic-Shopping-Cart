@@ -21,8 +21,9 @@ $cart = new Cart();
     <?php
         echo $products->listProducts();
 
-        if (isset($_POST['productId'])) {
+        if (isset($_POST['addButton'])) {
             $productId = intVal($_POST['productId']);
+            $cart->addToCart($productId);
         }
     ?>
 </ul>

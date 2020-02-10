@@ -36,7 +36,7 @@ class Cart {
         $_SESSION["Cart"] = $cart;
     }
 // echo("<script>console.log('add executed ". $productId . "');</script>");
-    function add($productId) {
+    function addToCart($productId) {
         echo("<script>console.log('add() called');</script>");
         $cart = $this->getCart();
         switch ($productId) {
@@ -80,7 +80,7 @@ class Cart {
         $total = 0;
         for($i = 0; $i < count($_SESSION["Cart"]); $i++) {
             if ($_SESSION["Cart"][$i]["quantity"] > 0) {
-                $total += $_SESSION["Cart"][$i]["quantity"];
+                $total += $_SESSION["Cart"][$i]["quantity"] * $_SESSION["Cart"][$i]["price"] ;
             }
         }
 
@@ -119,8 +119,30 @@ class Cart {
         return $html;
     }
 
-    function remove() {
+    function remove($productId) {
+        $cart = $this->getCart();
+        switch ($productId) {
+            case 0:
+                $cart[0]["quantity"]--;
+                break;
+            case 1:
+                $cart[1]["quantity"]--;
+                break;
+            case 2:
+                $cart[2]["quantity"]--;
+                break;
+            case 3:
+                $cart[3]["quantity"]--;
+                break;
+            case 4:
+                $cart[4]["quantity"]--;
+                break;
+            default:
+                echo "default";
+                break;
+        }
 
+        $this->setCart($cart);
     }
 }
 
@@ -148,7 +170,7 @@ class Products {
                     <div class="name">' . $product["name"] . '</div><div class="price">$' . $product["price"] . '</div>
                     <form class="addForm" method="POST" action="">
                         <input class="addInput"  type="hidden" name="productId" value='.$id.' />
-                        <input class="addInput"  type="submit" name="addButton" id="add" value="Add to Cart" />
+                        <input class="addInput"  type="submit" name="addButton" value="Add to Cart" />
                     </form>
                 </li>';
             $id++;
