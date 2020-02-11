@@ -19,12 +19,12 @@ $cart = new Cart();
 <div id="products-wrapper">
 <ul class="products">
     <?php
-        echo $products->listProducts();
-
         if (isset($_POST['addButton'])) {
             $productId = intVal($_POST['productId']);
             $cart->addToCart($productId);
         }
+
+        echo $products->listProducts();
     ?>
 </ul>
 </div>
@@ -32,12 +32,12 @@ $cart = new Cart();
 <div id="cart-wrapper">
 
         <?php
-        echo $cart->listItems();
-
         if (isset($_POST['removeButton'])) {
-            $productId = intVal($_POST['productId']);
-            $cart->removeFromCart($productId);
+            $removeId = intVal($_POST['removeId']);
+            $cart->removeFromCart($removeId);
         }
+
+        echo $cart->listItems();
         ?>
 </div>
 

@@ -114,9 +114,11 @@ class Cart {
             else {
                 $html = $html .
                     '<pre>
-                        <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST" action=""><input class="removeInput" type="hidden" name="productId" value=' . $id . ' /><input class="removeInput"  type="submit" name="removeButton" id="add" value="Remove from Cart" /></form>
+                        <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div>
+                        <form class="removeForm" method="POST"><input class="removeInput" type="hidden" name="removeId" value='. $id . ' /><input class="removeInput"  type="submit" name="removeButton" value="Remove from Cart" /></form>
                     </pre>';
             }
+            echo("<script>console.log('".$this->getName($item)."s Id is: ".$id."');</script>");
             $id++;
         }
 
@@ -128,9 +130,11 @@ class Cart {
         return $html;
     }
 
-    function removeFromCart($productId) {
+    function removeFromCart($removeId) {
+        echo("<script>console.log('remove() called');</script>");
+        echo("<script>console.log('removeId is: ".$removeId."');</script>");
         $cart = $this->getCart();
-        switch ($productId) {
+        switch ($removeId) {
             case 0:
                 $cart[0]["quantity"]--;
                 break;
@@ -152,6 +156,7 @@ class Cart {
         }
 
         $this->setCart($cart);
+
     }
 }
 
@@ -182,7 +187,7 @@ class Products {
             $html = $html .
                 '<li>
                     <div class="name">' . $product["name"] . '</div><div class="price">$' . $formatter->formatPrice($product) . '</div>
-                    <form class="addForm" method="POST" action="">
+                    <form class="addForm" method="POST">
                         <input class="addInput"  type="hidden" name="productId" value='.$id.' />
                         <input class="addInput"  type="submit" name="addButton" value="Add to Cart" />
                     </form>
