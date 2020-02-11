@@ -39,7 +39,7 @@ class Cart
      */
     function setCart($cart)
     {
-        $_SESSION["Cart"] = $cart;
+        return $_SESSION["Cart"] = $cart;
     }
 
     /*
