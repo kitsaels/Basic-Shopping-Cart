@@ -9,6 +9,13 @@ class Cart
         $_SESSION["Cart"] = $this->getCart();
     }
 
+    /*
+    ** Get the current cart items.
+    ** Current cart items are provided from $_SESSION["Cart"]
+    ** If the $_SESSION["Cart"] is empty create an empty cart
+    **
+    ** Returns a $cart
+     */
     function getCart()
     {
         if ($_SESSION["Cart"] == "") {
@@ -24,11 +31,23 @@ class Cart
         }
     }
 
+    /*
+    ** Set the current cart.
+    **
+    ** Input is a $cart.
+    ** Returns a $cart $_Session["Cart"]
+     */
     function setCart($cart)
     {
         $_SESSION["Cart"] = $cart;
     }
 
+    /*
+    ** Adds items to a cart.
+    **
+    ** Input is $productId
+    ** Returns a function call to setCart().
+     */
     function addToCart($productId)
     {
         $cart = $this->getCart();
@@ -53,9 +72,15 @@ class Cart
                 break;
         }
 
-        $this->setCart($cart);
+        return $this->setCart($cart);
     }
 
+    /*
+    ** Gets the product name.
+    **
+    ** Input is an $item.
+    ** Returns a String for the item name.
+     */
     function getName($item)
     {
         $products = new Products();
@@ -64,6 +89,12 @@ class Cart
         return $productList[$item["id"]]["name"];
     }
 
+    /*
+    ** Gets total cost for a cart item.
+    **
+    ** Input is an $item.
+    ** Returns a function call to formatTotal();
+     */
     function getTotal($item)
     {
         $total = $item["quantity"] * $item["price"];
@@ -72,6 +103,11 @@ class Cart
         return $formatter->formatTotal($total);
     }
 
+    /*
+    ** Gets the overall total cost for the cart.
+    **
+    ** Returns a function call to formatTotal();
+     */
     function getOverallTotal()
     {
         $total = 0;
@@ -85,6 +121,11 @@ class Cart
         return $formatter->formatTotal($total);
     }
 
+    /*
+    ** Lists the items in the cart.
+    **
+    ** Returns a $html substring.
+     */
     function listItems()
     {
         $formatter = new Formatter();
@@ -97,7 +138,6 @@ class Cart
                         <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST"><input class="removeInput" type="hidden" name="removeId" value=' . $id . ' /><input class="removeInput"  type="submit" name="removeButton" value="Remove from Cart" /></form>
                     </pre>';
             }
-            echo("<script>console.log('" . $this->getName($item) . "s Id is: " . $id . "');</script>");
             $id++;
         }
 
@@ -109,10 +149,14 @@ class Cart
         return $html;
     }
 
+    /*
+    ** Removes items from a cart.
+    **
+    ** Input is $productId.
+    ** Returns a function call to setCart().
+     */
     function removeFromCart($removeId)
     {
-        echo("<script>console.log('remove() called');</script>");
-        echo("<script>console.log('removeId is: " . $removeId . "');</script>");
         $cart = $this->getCart();
         switch ($removeId) {
             case 0:
@@ -149,6 +193,11 @@ class Products
         $this->products = $this->getProducts();
     }
 
+    /*
+    ** Get products data.
+    **
+    ** Returns an array of arrays for product items.
+     */
     function getProducts()
     {
         return
@@ -163,6 +212,11 @@ class Products
         // ########################################################
     }
 
+    /*
+    ** Lists the products to buy.
+    **
+    ** Returns a $html substring.
+     */
     public function listProducts()
     {
         $html = "";
@@ -186,6 +240,13 @@ class Products
 
 class Formatter
 {
+
+    /*
+    ** Format the price of an item.
+    **
+    ** Input is an $item.
+    ** Returns a formatted number.
+     */
     function formatPrice($item)
     {
         $number = $item["price"];
@@ -193,6 +254,12 @@ class Formatter
         return number_format($number, 2);
     }
 
+    /*
+    ** Format the total price of a number.
+    **
+    ** Input is a $number.
+    ** Returns a formatted number.
+     */
     function formatTotal($number)
     {
 
