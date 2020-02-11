@@ -91,9 +91,7 @@ class Cart
         $html = "";
         $id = 0;
         foreach ($_SESSION["Cart"] as $item) {
-            if ($item["quantity"] == 0) {
-
-            } else {
+            if ($item["quantity"] > 0) {
                 $html = $html .
                     '<pre>
                         <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST"><input class="removeInput" type="hidden" name="removeId" value=' . $id . ' /><input class="removeInput"  type="submit" name="removeButton" value="Remove from Cart" /></form>
