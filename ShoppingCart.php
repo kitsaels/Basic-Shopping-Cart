@@ -2,18 +2,16 @@
 error_reporting(E_STRICT);
 session_start();
 
-class Cart {
-    public function __construct() {
-        echo("<script>console.log('constructor() called');</script>");
+class Cart
+{
+    public function __construct()
+    {
         $_SESSION["Cart"] = $this->getCart();
-
     }
 
-    function getCart() {
-        echo("<script>console.log('getCart() called');</script>");
+    function getCart()
+    {
         if ($_SESSION["Cart"] == "") {
-            echo("<script>console.log('null');</script>");
-
             return $cart = [
                 ["id" => 0, "price" => 125.75, "quantity" => 0],
                 ["id" => 1, "price" => 190.50, "quantity" => 0],
@@ -21,23 +19,18 @@ class Cart {
                 ["id" => 3, "price" => 12.9, "quantity" => 0],
                 ["id" => 4, "price" => 18.45, "quantity" => 0],
             ];
-        }
-        else {
-            echo("<script>console.log('not null');</script>");
-            echo("<script>console.log('cart is ". $_SESSION["Cart"] . "');</script>");
+        } else {
             return $_SESSION["Cart"];
         }
-
-
     }
 
-    function setCart($cart) {
-        echo("<script>console.log('setCart() called');</script>");
+    function setCart($cart)
+    {
         $_SESSION["Cart"] = $cart;
     }
-// echo("<script>console.log('add executed ". $productId . "');</script>");
-    function addToCart($productId) {
-        echo("<script>console.log('add() called');</script>");
+
+    function addToCart($productId)
+    {
         $cart = $this->getCart();
         switch ($productId) {
             case 0:
@@ -61,65 +54,67 @@ class Cart {
         }
 
         $this->setCart($cart);
-//        echo("<script>console.log('end of add()');</script>");
-//        echo("<script>console.log('". $cart[0]["quantity"] . "');</script>");
-//        echo("<script>console.log('". $cart[1]["quantity"] . "');</script>");
     }
 
-    function getName($item) {
+    function getName($item)
+    {
         $products = new Products();
         $productList = $products->getProducts();
 
         return $productList[$item["id"]]["name"];
     }
 
-    function getTotal($item) {
+    function getTotal($item)
+    {
         $total = $item["quantity"] * $item["price"];
-
         $formatter = new Formatter();
+
         return $formatter->formatTotal($total);
     }
 
-    function getOverallTotal() {
+    function getOverallTotal()
+    {
         $total = 0;
-        for($i = 0; $i < count($_SESSION["Cart"]); $i++) {
+        for ($i = 0; $i < count($_SESSION["Cart"]); $i++) {
             if ($_SESSION["Cart"][$i]["quantity"] > 0) {
-                $total += $_SESSION["Cart"][$i]["quantity"] * $_SESSION["Cart"][$i]["price"] ;
+                $total += $_SESSION["Cart"][$i]["quantity"] * $_SESSION["Cart"][$i]["price"];
             }
         }
         $formatter = new Formatter();
+
         return $formatter->formatTotal($total);
     }
 
-    function listItems() {
+    function listItems()
+    {
         $formatter = new Formatter();
         $html = "";
         $id = 0;
-        foreach($_SESSION["Cart"] as $item) {
+        foreach ($_SESSION["Cart"] as $item) {
             if ($item["quantity"] == 0) {
 
-            }
-            else {
+            } else {
                 $html = $html .
                     '<pre>
-                        <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST"><input class="removeInput" type="hidden" name="removeId" value='. $id . ' /><input class="removeInput"  type="submit" name="removeButton" value="Remove from Cart" /></form>
+                        <div class="name">' . $this->getName($item) . '</div><div class="price">Price: $' . $formatter->formatPrice($item) . '</div><div class="quantity">Quantity: ' . $item["quantity"] . '</div><div class="total">Total: $' . $this->getTotal($item) . '</div><form class="removeForm" method="POST"><input class="removeInput" type="hidden" name="removeId" value=' . $id . ' /><input class="removeInput"  type="submit" name="removeButton" value="Remove from Cart" /></form>
                     </pre>';
             }
-            echo("<script>console.log('".$this->getName($item)."s Id is: ".$id."');</script>");
+            echo("<script>console.log('" . $this->getName($item) . "s Id is: " . $id . "');</script>");
             $id++;
         }
 
         $html = $html .
             '<pre>
-                <div class="overallTotal">Overall Total: $' . $this->getOverallTotal() .'</div>
+                <div class="overallTotal">Overall Total: $' . $this->getOverallTotal() . '</div>
             </pre>';
 
         return $html;
     }
 
-    function removeFromCart($removeId) {
+    function removeFromCart($removeId)
+    {
         echo("<script>console.log('remove() called');</script>");
-        echo("<script>console.log('removeId is: ".$removeId."');</script>");
+        echo("<script>console.log('removeId is: " . $removeId . "');</script>");
         $cart = $this->getCart();
         switch ($removeId) {
             case 0:
@@ -147,14 +142,17 @@ class Cart {
     }
 }
 
-class Products {
-    public $products;
+class Products
+{
+    private $products;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->products = $this->getProducts();
     }
 
-    function getProducts() {
+    function getProducts()
+    {
         return
             // ######## please do not alter the following code ########
             $products = [
@@ -166,16 +164,18 @@ class Products {
             ];
         // ########################################################
     }
-    public function listProducts() {
+
+    public function listProducts()
+    {
         $html = "";
         $id = 0;
         $formatter = new Formatter();
-        foreach($this->products as $product) {
+        foreach ($this->products as $product) {
             $html = $html .
                 '<li>
                     <div class="name">' . $product["name"] . '</div><div class="price">$' . $formatter->formatPrice($product) . '</div>
                     <form class="addForm" method="POST">
-                        <input class="addInput"  type="hidden" name="productId" value='.$id.' />
+                        <input class="addInput"  type="hidden" name="productId" value=' . $id . ' />
                         <input class="addInput"  type="submit" name="addButton" value="Add to Cart" />
                     </form>
                 </li>';
@@ -186,13 +186,18 @@ class Products {
     }
 }
 
-class Formatter {
-    function formatPrice($item) {
+class Formatter
+{
+    function formatPrice($item)
+    {
         $number = $item["price"];
+
         return number_format($number, 2);
     }
 
-    function formatTotal($number) {
+    function formatTotal($number)
+    {
+
         return number_format($number, 2);
     }
 }

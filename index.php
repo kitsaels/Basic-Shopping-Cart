@@ -1,5 +1,5 @@
 <?php
-include ("ShoppingCart.php");
+include("ShoppingCart.php");
 session_start();
 
 $products = new Products();
@@ -17,28 +17,28 @@ $cart = new Cart();
 
 <h1>Products</h1>
 <div id="products-wrapper">
-<ul class="products">
-    <?php
+    <ul class="products">
+        <?php
         if (isset($_POST['addButton'])) {
             $productId = intVal($_POST['productId']);
             $cart->addToCart($productId);
         }
 
         echo $products->listProducts();
-    ?>
-</ul>
+        ?>
+    </ul>
 </div>
 <h1>Cart</h1>
 <div id="cart-wrapper">
 
-        <?php
-        if (isset($_POST['removeButton'])) {
-            $removeId = intVal($_POST['removeId']);
-            $cart->removeFromCart($removeId);
-        }
+    <?php
+    if (isset($_POST['removeButton'])) {
+        $removeId = intVal($_POST['removeId']);
+        $cart->removeFromCart($removeId);
+    }
 
-        echo $cart->listItems();
-        ?>
+    echo $cart->listItems();
+    ?>
 </div>
 
 </body>
